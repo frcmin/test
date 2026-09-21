@@ -41,8 +41,19 @@ free -h
 df -h /
 
 export BUILD_TARGET=windows,x86_64
-export MOZ_MAKE_FLAGS="${MOZ_MAKE_FLAGS:--j2}"
+# 16c/32G-class -> -j12 compile; otherwise nproc. Link jobs stay 1–2.
+NCPU="$(nproc 2>/dev/null || echo 4)"
+MEM_GB="$(awk '/MemTotal/ {printf "%d", $2/1024/1024}' /proc/meminfo 2>/dev/null || echo 0)"
+if [[ -z "${MOZ_MAKE_FLAGS:-}" ]]; then
+  if [[ "${NCPU}" -ge 12 || "${MEM_GB}" -ge 28 ]]; then
+    export MOZ_MAKE_FLAGS="-j12"
+  else
+    export MOZ_MAKE_FLAGS="-j${NCPU}"
+  fi
+fi
+export MOZ_PARALLEL_LINK_JOBS="${MOZ_PARALLEL_LINK_JOBS:-1}"
 export CARGO_BUILD_JOBS="${CARGO_BUILD_JOBS:-2}"
+echo "==> jobs: MOZ_MAKE_FLAGS=${MOZ_MAKE_FLAGS} MOZ_PARALLEL_LINK_JOBS=${MOZ_PARALLEL_LINK_JOBS} nproc=${NCPU} mem=${MEM_GB}G"
 export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE="${MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE:-system}"
 export DISPLAY="${DISPLAY:-:1}"
 export WINEDEBUG="-all"
