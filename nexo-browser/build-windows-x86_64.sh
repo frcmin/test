@@ -8,10 +8,19 @@ CLONE="${ROOT}/upstream-camoufox"
 DIST_HOST="${ROOT}/nexo-browser/dist"
 LOG="${ROOT}/nexo-browser/build-windows-x86_64.log"
 
+# Cursor sandbox env vars contain syntax that breaks mozconfig parsing
+# (`assert not in_variable`). Drop them before mach/configure.
+while IFS= read -r k; do
+  case "$k" in
+    CURSOR_*|__CURSOR*) unset "$k" || true ;;
+  esac
+done < <(compgen -e)
+
 mkdir -p "${DIST_HOST}"
 exec > >(tee -a "${LOG}") 2>&1
 
 echo "==> $(date -u +%Y-%m-%dT%H:%M:%SZ) starting Windows x86_64 build"
+echo "==> Camoufox pin: v152.0.4-beta.30"
 
 bash "${ROOT}/nexo-browser/apply.sh"
 cd "${CLONE}"
@@ -33,12 +42,18 @@ df -h /
 
 export BUILD_TARGET=windows,x86_64
 export MOZ_MAKE_FLAGS="${MOZ_MAKE_FLAGS:--j2}"
+export CARGO_BUILD_JOBS="${CARGO_BUILD_JOBS:-2}"
 export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE="${MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE:-system}"
+export DISPLAY="${DISPLAY:-:1}"
+export WINEDEBUG="-all"
+export RUSTUP_HOME="${RUSTUP_HOME:-/usr/local/rustup}"
+export CARGO_HOME="${CARGO_HOME:-/usr/local/cargo}"
+export WINEPREFIX="${WINEPREFIX:-${HOME}/.mozbuild/wineprefix}"
 # rustup env if present
 # shellcheck disable=SC1091
 [[ -f "${HOME}/.cargo/env" ]] && . "${HOME}/.cargo/env"
 [[ -f /usr/local/cargo/env ]] && . /usr/local/cargo/env
-export PATH="${HOME}/.cargo/bin:/usr/local/cargo/bin:${PATH}"
+export PATH="${HOME}/.cargo/bin:/usr/local/cargo/bin:${HOME}/.mozbuild/wine/bin:${PATH}"
 if command -v rustup >/dev/null 2>&1; then
   rustup default stable || true
   rustup target add x86_64-pc-windows-msvc || true
