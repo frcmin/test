@@ -23,6 +23,7 @@ Copied onto the Camoufox clone by `nexo-browser/apply.sh`:
 | `patches/librewolf/disable-data-reporting-at-compile-time.patch` | `MOZ_APP_VENDOR` / `MOZ_APP_PROFILE` |
 | `assets/base.mozconfig` | `--with-app-name=nexobrowser`, `-j2` make flags |
 | `scripts/package.py` | Zip named `NexoBrowser-*-win.x86_64.zip`, exe `NexoBrowser.exe` |
+| `scripts/patch.py` | Find `rustup` on PATH when `~/.cargo/bin/rustup` is missing |
 | `multibuild.py` | Asset glob matches the NexoBrowser zip name |
 
 ## Settings / Preferences chrome removal
