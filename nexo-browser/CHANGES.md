@@ -41,6 +41,17 @@ Copied onto the Camoufox clone by `nexo-browser/apply.sh`:
 `remove-settings-menu.py` writes `_NEXOBROWSER_SETTINGS_REMOVED` in the Firefox
 tree listing every file it actually modified.
 
+## Address-bar / GenAI lockdown
+
+| File | Change |
+|---|---|
+| `scripts/apply-nexo-lockdown.py` | Block `javascript:` in UrlbarInput/SmartbarInput; drop javascript: urlbar results; hide Ask-an-AI-ChatBot (`context-ask-chat`); stub GenAI chat entry points |
+| `settings/chrome.css` | Hide chatbot context menu, GenAI shortcut panels, URL-bar quick-action / command chips |
+| `settings/nexo-lockdown.cfg` | `lockPref` for `browser.urlbar.filter.javascript`, quickactions/scotchBonnet/secondaryActions, and `browser.ml.chat.*` |
+| `settings/distribution/policies.json` | WebsiteFilter also blocks `javascript:*` |
+
+`apply.sh` appends `nexo-lockdown.cfg` onto `settings/camoufox.cfg` once.
+
 ## Sci-fi app icon
 
 Source mark: `nexo-browser/icons/nexobrowser_icon_1024.png` (cyan/magenta HUD

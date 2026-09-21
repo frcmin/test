@@ -199,3 +199,31 @@ toolbarbutton[oncommand*="openPreferences"],
 #key_openPreferences {
   display: none !important;
 }
+
+/*
+ * NexoBrowser lockdown: hide Ask-an-AI-ChatBot, GenAI shortcut chrome,
+ * and URL-bar quick-action / command chips so they never show.
+ */
+#context-ask-chat,
+#selection-shortcut-action-panel,
+#chat-shortcuts-options-panel,
+#ai-action-button,
+#ask-chat-shortcuts,
+.ask-chat-shortcut-warning,
+.ask-chat-shortcuts-custom-prompt,
+#viewGenaiChatSidebarKb,
+toolbarbutton[data-l10n-id="sidebar-menu-open-ai-chatbot-tooltip-generic"],
+toolbarbutton[data-l10n-id="sidebar-menu-close-ai-chatbot-tooltip-generic"],
+moz-button#ai-action-button,
+.urlbarView-row[type="action"],
+.urlbarView-row[dynamicType="quickactions"],
+.urlbarView-row[dynamicType="onboardtabtosearch"],
+.urlbar-searchmode-switcher,
+#urlbar-searchmode-switcher,
+.urlbar-additional-search-button,
+.urlbarView-quickaction-row,
+.urlbarView-button[data-action],
+.urlbar-label-action,
+.urlbarView-row[has-url="false"][type="dynamic"] .urlbarView-action {
+  display: none !important;
+}

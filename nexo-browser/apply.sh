@@ -30,6 +30,17 @@ fi
 echo "==> Applying NexoBrowser overlay"
 rsync -a "${OVERLAY}/" "${CLONE}/"
 
+# Append lockdown prefs once (javascript: / command chips / GenAI).
+LOCK_SNIPPET="${OVERLAY}/settings/nexo-lockdown.cfg"
+if [[ -f "${LOCK_SNIPPET}" ]]; then
+  for cfg in "${CLONE}/settings/camoufox.cfg" "${CLONE}"/camoufox-*/camoufox.cfg; do
+    if [[ -f "${cfg}" ]] && ! grep -q "NEXOBROWSER_LOCKDOWN" "${cfg}"; then
+      echo "==> Appending Nexo lockdown prefs to ${cfg}"
+      cat "${LOCK_SNIPPET}" >> "${cfg}"
+    fi
+  done
+fi
+
 if [[ -x "${CLONE}/scripts/install-clang-cl-wrapper.sh" ]]; then
   bash "${CLONE}/scripts/install-clang-cl-wrapper.sh" || true
 fi

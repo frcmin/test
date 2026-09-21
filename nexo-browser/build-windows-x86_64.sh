@@ -54,7 +54,8 @@ fi
 export MOZ_PARALLEL_LINK_JOBS="${MOZ_PARALLEL_LINK_JOBS:-1}"
 export CARGO_BUILD_JOBS="${CARGO_BUILD_JOBS:-2}"
 echo "==> jobs: MOZ_MAKE_FLAGS=${MOZ_MAKE_FLAGS} MOZ_PARALLEL_LINK_JOBS=${MOZ_PARALLEL_LINK_JOBS} nproc=${NCPU} mem=${MEM_GB}G"
-export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE="${MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE:-}"
+# Prefer mach virtualenvs over the system site-packages (taskcluster import).
+unset MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE || true
 export DISPLAY="${DISPLAY:-:1}"
 export WINEDEBUG="-all"
 export RUSTUP_HOME="${RUSTUP_HOME:-/usr/local/rustup}"
