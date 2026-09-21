@@ -59,6 +59,47 @@ index 65ee617216..719c5b0dc7 100644
      <key id="key_hideThisAppCmdMac"
           data-l10n-id="hide-app-shortcut"
           modifiers="accel"
+diff --git a/browser/base/content/navigator-toolbox.inc.xhtml b/browser/base/content/navigator-toolbox.inc.xhtml
+index e7e94e13a9..24c5782a07 100644
+--- a/browser/base/content/navigator-toolbox.inc.xhtml
++++ b/browser/base/content/navigator-toolbox.inc.xhtml
+@@ -36,14 +36,6 @@
+     <hbox flex="1" align="end" class="toolbar-items">
+       <toolbartabstop/>
+       <hbox id="TabsToolbar-customization-target" flex="1">
+-        <toolbarbutton id="firefox-view-button"
+-                       class="toolbarbutton-1 chromeclass-toolbar-additional"
+-                       data-l10n-id="toolbar-button-firefox-view-2"
+-                       role="button"
+-                       aria-pressed="false"
+-                       cui-areatype="toolbar"
+-                       removable="true"/>
+-
+         <tabs id="tabbrowser-tabs"
+               is="tabbrowser-tabs"
+               aria-multiselectable="true"
+@@ -538,6 +530,7 @@
+                      delegatesanchor="true"
+                      badged="true"
+                      consumeanchor="PanelUI-button"
++                     hidden="true"
+                      data-l10n-id="appmenu-menu-button-closed2"/>
+     </toolbaritem>
+     <hbox class="titlebar-spacer" type="post-tabs"/>
+@@ -733,5 +726,13 @@
+                    closemenu="none"
+                    cui-areatype="toolbar"
+                    data-l10n-id="navbar-library"/>
++
++    <toolbarbutton id="firefox-view-button"
++                   class="toolbarbutton-1 chromeclass-toolbar-additional"
++                   data-l10n-id="toolbar-button-firefox-view-2"
++                   role="button"
++                   aria-pressed="false"
++                   cui-areatype="toolbar"
++                   removable="true"/>
+   </html:template>
+ </toolbox>
 diff --git a/browser/components/customizableui/content/panelUI.js b/browser/components/customizableui/content/panelUI.js
 index 140ea6eddd..fd474a403f 100644
 --- a/browser/components/customizableui/content/panelUI.js

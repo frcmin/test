@@ -168,7 +168,12 @@ panel {
 #PersonalToolbar,
 toolbar#nav-bar > .titlebar-buttonbox-container,
 toolbar#nav-bar > .titlebar-spacer,
-#appMenu-library-remotetabs-button {
+#appMenu-library-remotetabs-button,
+#PanelUI-button,
+#PanelUI-menu-button,
+toolbaritem#PanelUI-button,
+#appMenu-popup,
+#widget-overflow {
   display: none !important;
 }
 

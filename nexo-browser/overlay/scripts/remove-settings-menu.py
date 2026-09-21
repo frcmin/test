@@ -26,6 +26,8 @@ TARGET_IDS = (
     "key_preferencesCmdMac",
     "cmd_Preferences",
     "cmd_preferences",
+    "PanelUI-menu-button",
+    "PanelUI-button",
 )
 
 ID_ATTR = re.compile(

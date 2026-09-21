@@ -30,7 +30,7 @@ Copied onto the Camoufox clone by `nexo-browser/apply.sh`:
 
 | File | Change |
 |---|---|
-| `settings/chrome.css` | Hide menu-bar, hamburger, and app-menu Settings items |
+| `settings/chrome.css` | Hide menu-bar Settings items **and the entire hamburger / `PanelUI-menu-button`** |
 | `scripts/remove-settings-menu.py` | Post-patch edit of Firefox chrome (XUL/JS ids and `openPreferences` handlers) |
 | `Makefile` `dir` target | Runs the settings-removal script after Camoufox patches |
 
@@ -42,8 +42,17 @@ files were:
 - `browser/base/content/appmenu-viewcache.inc.xhtml` (`appMenu-settings-button`)
 - `browser/base/content/browser-sets.inc.xhtml` (`key_preferencesCmdMac`)
 - `browser/components/customizableui/content/panelUI.js` (hamburger click handler)
+- `browser/base/content/navigator-toolbox.inc.xhtml` (`PanelUI-menu-button` hidden)
 
 The resulting unified diff is `nexo-browser/patches/remove-settings-menu.patch`.
+
+## Sci-fi app icon
+
+Source mark: `nexo-browser/icons/nexobrowser_icon_1024.png` (cyan/magenta HUD hexagon with an N). Rasterized by `scripts/generate-nexo-icons.py` into Camoufox branding slots:
+
+**Windows exe / file icons:** `firefox.ico`, `firefox64.ico`, `document.ico`, `document_pdf.ico`, `newtab.ico`, `newwindow.ico`, `pbmode.ico`
+
+**Window / about chrome:** `default{16,22,24,32,48,64,128,256}.png`, `logo.png`, `VisualElements_{70,150}.png`, `PrivateBrowsing_{70,150}.png`, `content/about-logo.png`, `content/about-logo@2x.png`, `content/about-logo.svg`, `content/about.png` (and private-browsing variants)
 
 ## Build (Windows x86_64, compiled from source)
 
