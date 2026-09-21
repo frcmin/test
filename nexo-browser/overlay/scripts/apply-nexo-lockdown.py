@@ -206,6 +206,17 @@ def patch_popupset(path: Path) -> bool:
     return changed
 
 
+def rebrand_text(path: Path) -> bool:
+    """Replace user-visible Camoufox strings with NexoBrowser."""
+    original = path.read_text(encoding="utf-8", errors="replace")
+    updated = original.replace("Camoufox", "NexoBrowser")
+    updated = updated.replace("https://github.com/daijro/camoufox", "about:blank")
+    if updated == original:
+        return False
+    path.write_text(updated, encoding="utf-8")
+    return True
+
+
 def main() -> int:
     if len(sys.argv) != 2:
         print("Usage: apply-nexo-lockdown.py <firefox-source-dir>", file=sys.stderr)

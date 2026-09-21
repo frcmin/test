@@ -11,8 +11,8 @@
 !define BrandFullNameInternal "NexoBrowser"
 !define BrandFullName         "NexoBrowser"
 !define CompanyName           "NexoBrowser"
-!define URLInfoAbout          "https://github.com/daijro/camoufox"
-!define HelpLink              "https://github.com/daijro/camoufox"
+!define URLInfoAbout          "about:blank"
+!define HelpLink              "about:blank"
 
 !define URLStubDownloadX86 "https://download.mozilla.org/?os=win&lang=${AB_CD}&product=firefox-latest"
 !define URLStubDownloadAMD64 "https://download.mozilla.org/?os=win64&lang=${AB_CD}&product=firefox-latest"
