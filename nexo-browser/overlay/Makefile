@@ -162,8 +162,10 @@ package-linux:
 	python3 scripts/package.py linux \
 		--includes \
 			settings/chrome.css \
+			settings/camoufox.cfg \
 			settings/camoucfg.jvv \
 			settings/properties.json \
+			settings/distribution \
 			bundle/fontconfig \
 		--version $(version) \
 		--release $(release) \
@@ -174,8 +176,10 @@ package-macos:
 	python3 scripts/package.py macos \
 		--includes \
 			settings/chrome.css \
+			settings/camoufox.cfg \
 			settings/camoucfg.jvv \
 			settings/properties.json \
+			settings/distribution \
 		--version $(version) \
 		--release $(release) \
 		--arch $(arch) \
@@ -185,8 +189,10 @@ package-windows:
 	python3 scripts/package.py windows \
 		--includes \
 			settings/chrome.css \
+			settings/camoufox.cfg \
 			settings/camoucfg.jvv \
 			settings/properties.json \
+			settings/distribution \
 			~/.mozbuild/vs/VC/Redist/MSVC/*/$(vcredist_arch)/Microsoft.VC*.CRT/*.dll \
 		--version $(version) \
 		--release $(release) \
