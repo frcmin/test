@@ -235,6 +235,14 @@ def main() -> int:
         (src / "browser/base/content/browser-context.inc.xhtml", patch_context_xhtml),
         (src / "browser/base/content/browser-sets.inc.xhtml", patch_browser_sets),
         (src / "browser/base/content/main-popupset.inc.xhtml", patch_popupset),
+        (src / "browser/base/content/aboutDialog.xhtml", rebrand_text),
+        (src / "browser/locales/en-US/chrome/overrides/appstrings.properties", rebrand_text),
+        (src / "browser/branding/camoufox/branding.nsi", rebrand_text),
+        (src / "browser/app/firefox.exe.manifest", rebrand_text),
+        (src / "browser/components/search/extensions/none/manifest.json", rebrand_text),
+        (src / "browser/components/extensions/parent/ext-tabs.js", rebrand_text),
+        (src / "browser/components/extensions/parent/ext-browser.js", rebrand_text),
+        (src / "dom/system/NetworkGeolocationProvider.sys.mjs", rebrand_text),
     ]
 
     changed: list[str] = []
