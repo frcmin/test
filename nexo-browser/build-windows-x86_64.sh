@@ -57,6 +57,7 @@ else
   bash scripts/install-deps.sh
   rustup target add x86_64-pc-windows-msvc || true
   make bootstrap
+  bash scripts/install-clang-cl-wrapper.sh
   python3 multibuild.py --target windows --arch x86_64
 fi
 

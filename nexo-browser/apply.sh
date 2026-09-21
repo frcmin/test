@@ -17,5 +17,9 @@ fi
 echo "==> Applying NexoBrowser overlay"
 rsync -a "${OVERLAY}/" "${CLONE}/"
 
+if [[ -x "${CLONE}/scripts/install-clang-cl-wrapper.sh" ]]; then
+  bash "${CLONE}/scripts/install-clang-cl-wrapper.sh" || true
+fi
+
 echo "==> Upstream HEAD: $(git -C "${CLONE}" rev-parse HEAD)"
 echo "==> Overlay applied."

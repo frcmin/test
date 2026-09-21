@@ -54,6 +54,17 @@ Source mark: `nexo-browser/icons/nexobrowser_icon_1024.png` (cyan/magenta HUD he
 
 **Window / about chrome:** `default{16,22,24,32,48,64,128,256}.png`, `logo.png`, `VisualElements_{70,150}.png`, `PrivateBrowsing_{70,150}.png`, `content/about-logo.png`, `content/about-logo@2x.png`, `content/about-logo.svg`, `content/about.png` (and private-browsing variants)
 
+**Also replaced:** macOS `Assets.xcassets/AppIcon.appiconset/icon_*.png`, MSIX `msix/Assets/*.png`, private-browsing about logos.
+
+## clang-cl Unix-path wrapper
+
+Linux-hosted `clang-cl` treats arguments that start with `/` as CL flags, so
+`/workspace/.../foo.c` is dropped (`clang-cl: error: no input files`).
+`scripts/clang-cl-unix-wrapper.sh` rewrites those sources to cwd-relative
+paths. `scripts/install-clang-cl-wrapper.sh` installs it over
+`~/.mozbuild/clang/bin/clang-cl` (real binary kept as `clang-cl.real`) and
+is invoked from `make build`.
+
 ## Build (Windows x86_64, compiled from source)
 
 ```bash

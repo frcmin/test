@@ -141,6 +141,8 @@ build: unbusy
 	@if [ ! -f $(cf_source_dir)/_READY ]; then \
 		make dir; \
 	fi
+	# clang-cl on Linux treats /workspace/... sources as CL flags.
+	bash scripts/install-clang-cl-wrapper.sh
 	cd $(cf_source_dir) && ./mach build $(_ARGS)
 
 edits:
