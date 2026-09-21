@@ -1,0 +1,75 @@
+diff --git a/browser/base/content/appmenu-viewcache.inc.xhtml b/browser/base/content/appmenu-viewcache.inc.xhtml
+index 4f1a7223d2..bb30301959 100644
+--- a/browser/base/content/appmenu-viewcache.inc.xhtml
++++ b/browser/base/content/appmenu-viewcache.inc.xhtml
+@@ -161,7 +161,7 @@
+ #ifdef XP_MACOSX
+                      key="key_preferencesCmdMac"
+ #endif
+-                     />
++                      hidden="true"/>
+       <toolbarbutton id="appMenu-more-button2"
+                      class="subviewbutton subviewbutton-nav"
+                      data-l10n-id="appmenuitem-more-tools"
+diff --git a/browser/base/content/browser-menubar.inc.xhtml b/browser/base/content/browser-menubar.inc.xhtml
+index d6df5932dc..f740a733ee 100644
+--- a/browser/base/content/browser-menubar.inc.xhtml
++++ b/browser/base/content/browser-menubar.inc.xhtml
+@@ -120,7 +120,7 @@
+                 <menuseparator/>
+                 <menuitem id="menu_preferences"
+                           data-l10n-id="menu-settings"
+-                          />
++                           hidden="true"/>
+ #endif
+ #endif
+               </menupopup>
+@@ -403,7 +403,7 @@
+ #ifndef XP_UNIX
+               <menuseparator id="prefSep"/>
+               <menuitem id="menu_preferences"
+-                        data-l10n-id="menu-settings"/>
++                        data-l10n-id="menu-settings" hidden="true"/>
+ #endif
+ #ifdef MOZ_DEBUG
+               <menuitem id="menu_layout_debugger"
+@@ -414,10 +414,10 @@
+ <!-- macOS 13 changed "Preferences" to "Settings" so one of these gets picked. -->
+               <menuitem id="menu_preferences"
+                         data-l10n-id="menu-application-preferences"
+-                        key="key_preferencesCmdMac"/>
++                        key="key_preferencesCmdMac" hidden="true"/>
+               <menuitem id="menu_settings"
+                         data-l10n-id="menu-application-settings"
+-                        key="key_preferencesCmdMac"/>
++                        key="key_preferencesCmdMac" hidden="true"/>
+               <menuitem id="menu_setAsDefault"
+                         data-l10n-id="menu-application-set-as-default"/>
+               <menuitem id="menu_mac_services" data-l10n-id="menu-application-services"/>
+diff --git a/browser/base/content/browser-sets.inc.xhtml b/browser/base/content/browser-sets.inc.xhtml
+index 65ee617216..719c5b0dc7 100644
+--- a/browser/base/content/browser-sets.inc.xhtml
++++ b/browser/base/content/browser-sets.inc.xhtml
+@@ -409,7 +409,7 @@
+     <key id="key_preferencesCmdMac"
+          data-l10n-id="preferences-shortcut"
+          modifiers="accel"
+-         internal="true"/>
++         internal="true" hidden="true"/>
+     <key id="key_hideThisAppCmdMac"
+          data-l10n-id="hide-app-shortcut"
+          modifiers="accel"
+diff --git a/browser/components/customizableui/content/panelUI.js b/browser/components/customizableui/content/panelUI.js
+index 140ea6eddd..fd474a403f 100644
+--- a/browser/components/customizableui/content/panelUI.js
++++ b/browser/components/customizableui/content/panelUI.js
+@@ -436,7 +436,8 @@ const PanelUI = {
+         setTimeout(() => BrowserCommands.fullScreen(), 0);
+         break;
+       case "appMenu-settings-button":
+-        openPreferences();
++        
++        // NexoBrowser: Settings chrome entry removed
+         break;
+       case "appMenu-more-button2":
+         this.showMoreToolsPanel(target);
