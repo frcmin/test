@@ -21,7 +21,7 @@ Copied onto the Camoufox clone by `nexo-browser/apply.sh`:
 | `additions/browser/branding/camoufox/locales/en-US/brand.properties` | Properties brand strings |
 | `additions/browser/branding/camoufox/branding.nsi` | Windows NSIS display names |
 | `patches/librewolf/disable-data-reporting-at-compile-time.patch` | `MOZ_APP_VENDOR` / `MOZ_APP_PROFILE` |
-| `assets/base.mozconfig` | `--with-app-name=nexobrowser`, `-j2` make flags |
+| `assets/base.mozconfig` | `--with-app-name=nexobrowser`, `-j2` make flags, `--disable-accessibility` (wine/midl IA2) |
 | `scripts/package.py` | Zip named `NexoBrowser-*-win.x86_64.zip`, exe `NexoBrowser.exe` |
 | `scripts/patch.py` | Find `rustup` on PATH when `~/.cargo/bin/rustup` is missing |
 | `multibuild.py` | Asset glob matches the NexoBrowser zip name |
