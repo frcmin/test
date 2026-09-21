@@ -16,13 +16,17 @@ echo "==> $(date -u +%Y-%m-%dT%H:%M:%SZ) starting Windows x86_64 build"
 bash "${ROOT}/nexo-browser/apply.sh"
 cd "${CLONE}"
 
-# Swap keeps the libxul link from dying on a 16 GiB cloud VM.
+# Swap helps the libxul link on small VMs, but many cloud pods disallow it.
 if ! swapon --show | grep -q .; then
-  echo "==> Adding 32G swap"
-  sudo fallocate -l 32G /swapfile || sudo dd if=/dev/zero of=/swapfile bs=1M count=32768
-  sudo chmod 600 /swapfile
-  sudo mkswap /swapfile
-  sudo swapon /swapfile
+  echo "==> Attempting 32G swap (optional)"
+  if sudo fallocate -l 32G /swapfile 2>/dev/null || sudo dd if=/dev/zero of=/swapfile bs=1M count=32768; then
+    sudo chmod 600 /swapfile
+    sudo mkswap /swapfile || true
+    if ! sudo swapon /swapfile; then
+      echo "==> Swap not permitted in this environment; continuing without it"
+      sudo rm -f /swapfile
+    fi
+  fi
 fi
 free -h
 df -h /
