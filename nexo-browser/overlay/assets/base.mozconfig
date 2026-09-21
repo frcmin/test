@@ -29,7 +29,10 @@ ac_add_options --with-branding=browser/branding/camoufox
 
 ac_add_options --with-unsigned-addon-scopes=app,system
 
-ac_add_options --enable-bootstrap
+# Toolchains (clang, VS) are already in ~/.mozbuild. Full --enable-bootstrap
+# re-enters Taskcluster artifact fetch and dies on a taskcluster/ path collision
+# (`No module named 'taskcluster.exceptions'`).
+ac_add_options --enable-bootstrap=no-update
 
 # Compile jobs: ~-j12 on 16c/32G-class (or similar); otherwise nproc.
 # Always keep parallel link jobs at 1 so libxul cannot OOM the box.
