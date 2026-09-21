@@ -39,6 +39,10 @@ export MACH_BUILD_PYTHON_NATIVE_PACKAGE_SOURCE="${MACH_BUILD_PYTHON_NATIVE_PACKA
 [[ -f "${HOME}/.cargo/env" ]] && . "${HOME}/.cargo/env"
 [[ -f /usr/local/cargo/env ]] && . /usr/local/cargo/env
 export PATH="${HOME}/.cargo/bin:/usr/local/cargo/bin:${PATH}"
+if command -v rustup >/dev/null 2>&1; then
+  rustup default stable || true
+  rustup target add x86_64-pc-windows-msvc || true
+fi
 
 if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
   echo "==> Docker available: using camoufox-builder"

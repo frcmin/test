@@ -35,7 +35,15 @@ Copied onto the Camoufox clone by `nexo-browser/apply.sh`:
 | `Makefile` `dir` target | Runs the settings-removal script after Camoufox patches |
 
 `remove-settings-menu.py` writes `_NEXOBROWSER_SETTINGS_REMOVED` in the Firefox
-tree listing every file it actually modified (depends on Firefox 152 chrome).
+tree listing every file it actually modified. Against Firefox 152.0.4 those
+files were:
+
+- `browser/base/content/browser-menubar.inc.xhtml` (menu bar Settings items)
+- `browser/base/content/appmenu-viewcache.inc.xhtml` (`appMenu-settings-button`)
+- `browser/base/content/browser-sets.inc.xhtml` (`key_preferencesCmdMac`)
+- `browser/components/customizableui/content/panelUI.js` (hamburger click handler)
+
+The resulting unified diff is `nexo-browser/patches/remove-settings-menu.patch`.
 
 ## Build (Windows x86_64, compiled from source)
 
