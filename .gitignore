@@ -1,0 +1,9 @@
+# Ignore the Camoufox clone, Firefox source, and large build outputs.
+# Persist only the small NexoBrowser overlay under nexo-browser/.
+upstream-camoufox/
+nexo-browser/dist/
+nexo-browser/*.log
+*.source.tar.xz
+*.zip
+camoufox-*/
+firefox-*.source.tar.xz
