@@ -40,7 +40,17 @@ def reset_to_unpatched():
         return
 
     print("Resetting to unpatched state...")
-    run('git reset --hard unpatched && ./mach clobber && git clean -fdx')
+    run('git reset --hard unpatched')
+    # First-time trees have no objdir. `mach clobber` then crashes because
+    # ~/.mozbuild/srcdirs/<hash>/_virtualenvs does not exist yet.
+    has_objdir = any(
+        name.startswith('obj-') and os.path.isdir(name) for name in os.listdir('.')
+    )
+    if has_objdir:
+        run('./mach clobber')
+    else:
+        print("No objdir yet; skip mach clobber")
+    run('git clean -fdx')
 
 
 @dataclass
