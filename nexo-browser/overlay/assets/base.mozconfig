@@ -1,0 +1,68 @@
+ac_add_options --enable-application=browser
+ 
+ac_add_options --allow-addon-sideload
+ac_add_options --disable-crashreporter
+ac_add_options --disable-backgroundtasks
+ac_add_options --disable-debug
+# --disable-debug only turns off DEBUG code; it does NOT drop -g. Without this,
+# the gkrust fat-LTO staticlib and the libxul link carry full debug info, which
+# is what pushes linux/arm64 container builds into the OOM killer (#698).
+# Nothing in scripts/package.py consumes symbol files, so they are pure cost.
+ac_add_options --disable-debug-symbols
+ac_add_options --disable-default-browser-agent
+ac_add_options --disable-tests
+ac_add_options --disable-updater
+# ac_add_options --enable-hardening
+# ac_add_options --enable-jxl
+# ac_add_options --enable-optimize
+ac_add_options --enable-release
+# ac_add_options --enable-rust-simd
+
+ac_add_options --disable-system-policies
+# IA2/MSAA headers need wine+midl.exe; that path hangs or fails on this
+# Linux host, and Camoufox already documents this switch.
+ac_add_options --disable-accessibility
+# ac_add_options --disable-webspeech
+
+ac_add_options --with-app-name=nexobrowser
+ac_add_options --with-branding=browser/branding/camoufox
+
+ac_add_options --with-unsigned-addon-scopes=app,system
+
+# Toolchains (clang, VS) are already in ~/.mozbuild. Full --enable-bootstrap
+# re-enters Taskcluster artifact fetch and dies on a taskcluster/ path collision
+# (`No module named 'taskcluster.exceptions'`).
+ac_add_options --enable-bootstrap=no-update
+
+# Compile jobs: ~-j12 on 16c/32G-class (or similar); otherwise nproc.
+# Always keep parallel link jobs at 1 so libxul cannot OOM the box.
+# Drop a stale wrapper MOZ_MAKE_FLAGS so this heuristic wins.
+unset MOZ_MAKE_FLAGS
+NCPU=$(nproc 2>/dev/null || echo 4)
+MEM_KB=$(awk '/MemTotal/ {print $2}' /proc/meminfo 2>/dev/null || echo 0)
+MEM_GB=$((MEM_KB / 1024 / 1024))
+if [ "${NCPU}" -ge 12 ] || [ "${MEM_GB}" -ge 28 ]; then
+  MOZ_MAKE_FLAGS="-j12"
+else
+  MOZ_MAKE_FLAGS="-j${NCPU}"
+fi
+mk_add_options MOZ_MAKE_FLAGS="${MOZ_MAKE_FLAGS}"
+mk_add_options MOZ_PARALLEL_LINK_JOBS=1
+export MOZ_PARALLEL_LINK_JOBS=1
+
+# ccache + clang-cl on Linux treats Unix source paths as CL flags
+# ("clang-cl: error: no input files"). Do not enable it for this cross-compile.
+# if command -v ccache >/dev/null 2>&1; then
+#   ac_add_options --with-ccache=ccache
+# fi
+
+export MOZ_REQUIRE_SIGNING=
+
+mk_add_options MOZ_CRASHREPORTER=0
+mk_add_options MOZ_DATA_REPORTING=0
+mk_add_options MOZ_SERVICES_HEALTHREPORT=0
+mk_add_options MOZ_TELEMETRY_REPORTING=0
+mk_add_options MOZ_INSTALLER=0
+mk_add_options MOZ_AUTOMATION_INSTALLER=0
+
+# ac_add_options --enable-lto=cross
