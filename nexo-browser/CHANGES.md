@@ -23,7 +23,10 @@ Copied onto the Camoufox clone by `nexo-browser/apply.sh`:
 | `additions/browser/branding/camoufox/locales/en-US/brand.ftl` | Window title / About Fluent strings |
 | `additions/browser/branding/camoufox/locales/en-US/brand.dtd` | DTD brand entities |
 | `additions/browser/branding/camoufox/locales/en-US/brand.properties` | Properties brand strings |
-| `additions/browser/branding/camoufox/branding.nsi` | Windows NSIS display names |
+| `additions/browser/branding/camoufox/branding.nsi` | Windows NSIS display names (no camoufox URLs) |
+| `additions/browser/base/content/aboutDialog.xhtml` | About wordmark/text show NexoBrowser |
+| `additions/browser/locales/en-US/chrome/overrides/appstrings.properties` | Error strings say NexoBrowser |
+| `additions/browser/app/firefox.exe.manifest` | Windows assembly name/description NexoBrowser |
 | `patches/librewolf/disable-data-reporting-at-compile-time.patch` | `MOZ_APP_VENDOR` / `MOZ_APP_PROFILE` |
 | `assets/base.mozconfig` | `--with-app-name=nexobrowser`, `--disable-accessibility`, ccache off; `-j12` compile / 1 link job on 16c/32G-class, else `-j$(nproc)` |
 | `scripts/package.py` | Zip named `NexoBrowser-*-win.x86_64.zip`, exe `NexoBrowser.exe` |
